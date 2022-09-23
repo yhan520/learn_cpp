@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _BINARYTREE_H_
+#define _BINARYTREE_H_
 #include <stack>
 #include <vector>
 #include <iostream>
@@ -12,7 +13,7 @@ struct node {
 	node* lchild;
 	node* rchild;
 	T data;
- };
+};
 
 template<typename T>
 class BinaryTree
@@ -30,7 +31,7 @@ public:
 	size_t height(); //返回二叉树的高度
 
 	//先序遍历二叉树，并将结果保存到参数中，非递归法
-	void preOrder(T* arr, size_t size); 
+	void preOrder(T* arr, size_t size);
 	void preOrder(vector<T>& vec);
 
 	//中序遍历二叉树，并将结果保存到参数中，非递归法
@@ -85,7 +86,7 @@ inline size_t BinaryTree<T>::height() {
 			p_node = ((s.top()).t_node)->rchild;
 		}
 	}
-	
+
 	return max_level;
 }
 
@@ -138,7 +139,7 @@ BinaryTree<T>::BinaryTree(T* arr, size_t size, const T& invalid) {
 }
 
 template<typename T>
-inline BinaryTree<T>::~BinaryTree(){
+inline BinaryTree<T>::~BinaryTree() {
 	node<T>* p_node = this->root;
 	size_t index = 0;
 	struct record {
@@ -241,7 +242,7 @@ void BinaryTree<T>::inOrder(vector<T>& vec) {
 
 template<typename T>
 inline void BinaryTree<T>::postOrder(T* arr, size_t size) {
-	
+
 	node<T>* p_node = this->root;
 	size_t index = 0;
 	struct record {
@@ -329,4 +330,9 @@ inline void BinaryTree<T>::levelOrder(vector<T>& vec) {
 			d.push_back(p_node->rchild);
 	}
 }
+
+#endif
+
+
+
 
