@@ -1,4 +1,4 @@
-#include "binary_tree.h"
+#include "binary_tree.hpp"
 
 int main() {
 	using namespace std;
@@ -42,11 +42,33 @@ int main() {
 	cout << endl;
 
 	b2->levelOrder(level_vec);
-	cout << "二叉树b2的后序遍历结果为：";
+	cout << "二叉树b2的层序遍历结果为：";
 	for (char ch : level_vec) {
 		cout << ch << " ";
 	}
 	cout << endl;
+
+	BinaryTree<char>* b3 = new BinaryTree<char>(*b2);
+	vector<char> level_vec_3;
+	b3->levelOrder(level_vec_3);
+	cout << "二叉树b3的层序遍历结果为：";
+	for (char ch : level_vec_3) {
+		cout << ch << " ";
+	}
+	cout << endl;
+
+	BinaryTree<char>* b4 = new BinaryTree<char>;
+	*b4 = *b3;
+	vector<char> post_vec_4;
+	b2->postOrder(post_vec_4);
+	cout << "二叉树b4的后序遍历结果为：";
+	for (char ch : post_vec_4) {
+		cout << ch << " ";
+	}
+	cout << endl;
+
+	delete b4;
+	delete b3;
 	delete b2;
 
 	system("pause");

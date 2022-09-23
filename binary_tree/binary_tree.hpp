@@ -22,10 +22,15 @@ private:
 	node<T>* root;
 	T m_end;
 	size_t m_size;
+	static node<T>* copy(node<T>* oldtree);
+	static void delete_node(node<T>* oldtree);
 public:
 	BinaryTree();
 	BinaryTree(T* arr, size_t size, const T& invalid); //按照先序序列建立二叉树
+	BinaryTree(const BinaryTree<T>& t1);//复制构造函数
 	~BinaryTree();
+
+	BinaryTree<T>& operator=(const BinaryTree<T>& t1); //重载=
 
 	size_t size(); //返回二叉树节点的个数
 	size_t height(); //返回二叉树的高度
@@ -139,6 +144,12 @@ BinaryTree<T>::BinaryTree(T* arr, size_t size, const T& invalid) {
 }
 
 template<typename T>
+BinaryTree<T>::BinaryTree(const BinaryTree<T>& t1)
+{
+	this->root = copy(t1.root);
+}
+
+template<typename T>
 inline BinaryTree<T>::~BinaryTree() {
 	node<T>* p_node = this->root;
 	size_t index = 0;
@@ -164,6 +175,43 @@ inline BinaryTree<T>::~BinaryTree() {
 		}
 	}
 	//std::cout << index;
+}
+
+template<typename T>
+inline BinaryTree<T>& BinaryTree<T>::operator=(const BinaryTree<T>& t1)
+{
+	if (this == &t1) {
+		return *this;
+	}
+	if (this->root != nullptr) {
+		delete_node(root);
+	}
+	this->root = copy(t1.root);
+	return *this;
+}
+
+template<typename T>
+inline node<T>* BinaryTree<T>::copy(node<T>* oldtree)
+{
+	node<T>* temp;
+	if (oldtree != nullptr) {
+		temp = new node<T>;
+		temp->data = oldtree->data;
+		temp->lchild = copy(oldtree->lchild);
+		temp->rchild = copy(oldtree->rchild);
+		return temp;
+	}
+	return nullptr;
+}
+
+template<typename T>
+inline void BinaryTree<T>::delete_node(node<T>* oldtree)
+{
+	if (oldtree == nullptr)
+		return;
+	delete_node(oldtree->lchild);
+	delete_node(oldtree->rchild);
+	delete oldtree;
 }
 
 template<typename T>

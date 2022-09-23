@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="binary_tree.h">
+    <ClInclude Include="binary_tree.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
